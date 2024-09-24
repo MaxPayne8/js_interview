@@ -22,14 +22,44 @@
 //   this.name = name ;
 //   this.rollNo = rollNo;
 // }
-
+//This is added in es6 , previousy we had to do create a func then use .prototype to add a func to it
+//actually class keyword was introduced in es6
 // printFunc(){
 // console.log(this.name+"'s roll number is "+this.rollNo)}
 
 // }
 
-// const Rohan  = new student("Rohan", 21);
-// Rohan.printFunc();
+// const Rohan = new student("Rohan", 21);
+// Rohan.greetStudent();
+
+//Es 5 way------------------->
+// function student(name) {
+//   this.name = name;
+// }
+
+// student.prototype.greetStudent = function () {
+//   console.log("Hello", this.name);
+// };
+
+// const stu1 = new student("Zatin");
+// stu1.greetStudent();
+
+// function counter() {
+//   var count = 0;
+//   this.incCount = function () {
+//     count++;
+//     console.log(count);
+//   };
+//   this.decCount = function () {
+//     count--;
+//     console.log(count);
+//   };
+// }
+
+// const counter1 = new counter();
+// counter1.incCount();
+// counter1.incCount();
+// counter1.incCount();
 
 ////Objects in JS --------------------------------------------------->
 
@@ -138,6 +168,14 @@
 
 ////Using Closures ---------------------------------------------->
 
+// function multiply(x) {
+//   return function (y) {
+//     return x * y;
+//   };
+// }
+// const multiplyByTwo = multiply(2);
+// console.log(multiplyByTwo(6));
+
 // let multiply =(x)=>{
 //     return (y)=>console.log(x*y);
 // }
@@ -171,16 +209,25 @@
 
 // student1.__proto__ = student;
 
-// console.log(student1.printInfo())
+// console.log(student1.printInfo()) //(Ranbir , 8)
 
 ////Map, filter , reduce ---------------------------------------------------------------->
 
 // const studentsArr = [
-//     { name: "zatin", rollNum: 22, location: { pincode: 123 } },
-//     { name: "sanju", rollNum: 23, location: { pincode: 456 } },
-//     { name: "raju", rollNum: 24, location: { pincode: 123 } },
-//     { name: "anuj", rollNum: 25, location: { pincode: 789 } }
+//   { name: "zatin", rollNum: 22, location: { pincode: 123 } },
+//   { name: "sanju", rollNum: 23, location: { pincode: 456 } },
+//   { name: "raju", rollNum: 24, location: { pincode: 123 } },
+//   { name: "anuj", rollNum: 25, location: { pincode: 789 } },
 // ];
+
+// const byPinCodeObj = {};
+
+// studentsArr.map((stu) => {
+//   if (byPinCodeObj[stu.location.pincode] == undefined)
+//     byPinCodeObj[stu.location.pincode] = [];
+//   byPinCodeObj[stu.location.pincode].push(stu);
+// });
+// console.log(byPinCodeObj);
 
 // const getByPincode =(students)=>  students.reduce((acc,student)=>{
 //     const pincode = student.location.pincode;
@@ -217,12 +264,14 @@
 
 // }
 
-////IIFE (Immediately Invoked Function Expression): The IIFE (function(i) { ... })(i); creates a new scope for each iteration of the loop.
+////IIFE (Immediately Invoked Function Expression): The IIFE (function(i) { ... })(i);
+// creates a new scope for each iteration of the loop.
 
 ////Function Argument: The value of i is passed to the IIFE as an argument, and within the IIFE,
 //// i is a new local variable, separate from the i in the outer loop.
 
-////Event Listener: Each button’s click event handler has access to the correct i value due to the new scope created by the IIFE.
+////Event Listener: Each button’s click event handler has access to the correct i
+// value due to the new scope created by the IIFE.
 
 ////This ensures that each button logs its corresponding i value when clicked.
 
@@ -241,7 +290,7 @@
 //// How to check if an obj is an array because...---------------------------------->
 
 ////console.log(typeOf []) -------------------------> Object
-////console.log(typeOf []) -------------------------> Object
+////console.log(typeOf {}) -------------------------> Object
 
 // const isObj = (element) =>{
 //     return Array.isArray(element)
@@ -295,7 +344,7 @@
 //     const reversdNum = num.toString().split("").reverse().join("");
 //     return +reversdNum;// converted back to num
 // }
-// console.log(revNum(123));
+// console.log(revNum(123));//321
 
 // const revNum = (num) =>{
 //     var result =0 ;
@@ -306,7 +355,7 @@
 //     return result;
 
 // }
-//  console.log(revNum(123));
+//  console.log(revNum(123));//321
 
 ////Check string palindrome --------------------------->
 
@@ -338,24 +387,23 @@
 //     return capFirtsLetters
 // }
 
-// console.log(convertUpperCase("i am zatin pandey"));
+// console.log(convertUpperCase("i am zatin pandey"));// I Am Zatin Pandey
 
 //// Write a function to find a number of occurernces of each letter in a word--------------->
 
-// const letterOccuernces=(str) =>{
-//     let obj ={};
+// const letterOccuernces = (str) => {
+//   let obj = {};
 
-//     for(let i=0 ; i<str.length ; i++){
-//         obj[str[i]] = (obj[str[i]] || 0) + 1;
+//   for (let i = 0; i < str.length; i++) {
+//     obj[str[i]] = (obj[str[i]] || 0) + 1;
+//   }
+//   for (key in obj) {
+//     console.log(key, ":", obj[key]);
+//   }
+//   console.log(obj);
+// };
 
-//         }
-//     for(const key in obj){
-//         console.log(key,":",obj[key])
-//     }
-
-// }
-
-// letterOccuernces("abcccddda")
+// letterOccuernces("abcccddda");
 
 // const letterOccuernces=(str) =>{
 //     let obj ={};
@@ -373,19 +421,19 @@
 
 // console.log(letterOccuernces("abcccddda"))
 
-////Add all elemets of array------------------------>
+//// Add all elemets of array------------------------>
 
-// const getSum =(arr) => {
-//     return(arr.reduce((acc,el)=> acc+el ,0))
-// }
+// const getSum = (arr) => {
+//   return arr.reduce((acc, el) => acc + el, 0);
+// };
 
-// console.log(getSum([1,2,3,10]))
+// console.log(getSum([1, 2, 3, 10]));
 
 //// In frontend getting OS---------->
 
 // function getOS() {
-//   const userAgent = window.navigator.userAgent;// Provides a string that contains details
-//   about the browser, operating system, and device.
+//   const userAgent = window.navigator.userAgent; // Provides a string that contains details
+//   //about the browser, operating system, and device.
 //   const user = window.navigator.platform; // Specifies the operating system on which the browser is running.
 //   let os = "Unknown OS";
 
@@ -489,6 +537,15 @@
 // These are just a few of the many use cases of the `window` object, which acts as
 //the gateway to various browser-specific functionalities.
 
+// Here’s a list of common falsy values in JavaScript:-------------->
+
+// false
+// 0
+// "" (empty string)
+// null
+// undefined
+// NaN (Not-a-Number)
+
 // Let's look at an example that demonstrates how the JavaScript execution context stack works:---->
 
 // ```javascript
@@ -568,7 +625,13 @@
 
 //// Add only the non-strings elements in an array---------------------->
 
-// const arr = [ 2, 4 , 8 ,"Hell's" , 16 , "Kitchen" ];
+// const arr = [2, 4, 8, "Hell's", 16, "Kitchen"];
+
+// const sum = arr.reduce((acc, el) => {
+//   typeof el == "number" ? (acc = el + acc) : (acc += 0);
+//   return acc;
+// }, 0);
+// console.log(sum);
 
 // const addOnlyNumbs = (arr)=>{
 //     const sum = arr.reduce((acc,num)=>{
@@ -593,26 +656,27 @@
 // }
 // console.log(addOnlyNumbs(arr));
 
-// const addOnlyNumbs = (arr)=>{
-//     var sum =0;
-//     for(el of arr){         ////here for(el in obj) ---->Used for iterating over Obj keys
-//         if(typeof el === 'number') sum+=el
-//     }
-//     return sum;
-// }
+// const addOnlyNumbs = (arr) => {
+//   var sum = 0;
+//   for (let el of arr) {
+//     ////here for(el in obj) ---->Used for iterating over Obj keys
+//     if (typeof el === "number") sum += el;
+//   }
+//   return sum;
+// };
 
 // console.log(addOnlyNumbs(arr));
 
 ////Slice and Splice--------------------------->
 
-// const arr = [1,2,3,4,5,6];
+//const arr = [1, 2, 3, 4, 5, 6];
 // const arr1 = [1,2,3,4,5,6];
 // const arr2 = [1,2,3,4,5,6];
 
 // console.log(arr.slice(1,3)); //// taking slice out , elements from index 1 to 2..
 // console.log(arr.slice(1)); //// taking slice out from index 1 to end..
 // console.log(arr.slice(-1)); //// taking last element out
-// console.log(arr.slice(-3,-1));//// taking out slice from -1 index(last index) to -2
+// console.log(arr.slice(-3, -1)); //// taking out slice from -3 index(third last index) to -2
 // console.log(arr1.splice(0,3));//// from index 0 remove three elements from arr1 permanently
 // console.log(arr1.splice(2,3,8,9,10))//// remove 3 elements starting from index 2 and add 8,9,10 in that places
 // console.log(arr2.splice(-3,2)) // remove 2 elements from index -3.
@@ -713,16 +777,16 @@
 
 //// Gobal Variables-------------------------------------------------->
 
-// const shuffleArr =()=>{
-//      x=10;
-//     console.log(x)
-
-// }
+// const shuffleArr = () => {
+//   x = 10;
+//   console.log(x);
+// };
 
 // shuffleArr();
-// console.log(x)
+// console.log(x);
 
-// The reason it got executed without error is because x was implicitly declared as a global variable. Here's the breakdown:
+// The reason it got executed without error is because x was implicitly declared as a global variable.
+//Here's the breakdown:
 
 // Key Points:
 
@@ -738,7 +802,8 @@
 
 // No Strict Mode: In non-strict mode, JavaScript allows this behavior (implicit global variable declaration).
 
-// If you were in strict mode ('use strict';), it would throw an error because you're trying to assign to an undeclared variable.
+// If you were in strict mode ('use strict';), it would throw an error because you're
+//trying to assign to an undeclared variable.
 
 //// Shuffle Array--------------------------------------------------->
 
@@ -771,6 +836,8 @@
 
 //// Union of two arrays---------------------------------------------->
 
+// console.log([...new Set([...[1, 2, 3, 4], ...[4, 5, 6]])]);
+
 // const unionArray = (arr1 , arr2) =>{
 
 //     let obj ={};
@@ -799,6 +866,19 @@
 // }
 
 // console.log(unionArray([8,1,2,3,4],[4,5,1,6,7,10,11,12]))
+
+//Rest Operator-------------------------->
+
+// function sum(...numbers) {
+//   return numbers.reduce((total, num) => total + num, 0);
+// }
+
+// console.log(sum(1, 2, 3)); // Output: 6
+// console.log(sum(4, 5));    // Output: 9
+
+// const obj = { name: "zatin", rollNum: 8, city: "haldwani" };
+// const { name, ...restProps } = obj;
+// console.log(restProps);
 
 //// Spread Operator uses------------------->
 
@@ -837,9 +917,10 @@
 // // Update an existing property----------------------->
 // obj.name = 'Zatin Pandey';
 
-// const obj = { name: 'Zatin', age: 25 };
+// const obj = { name: "Zatin", age: 25 };
+// const { age, ...remObj } = obj; //-->One way by using rest operator
+// console.log(remObj);
 // delete obj.age;
-
 // console.log(obj);  // { name: 'Zatin' }
 
 // const obj = { name: 'Zatin', age: 25 };
@@ -917,7 +998,7 @@
 
 // console.log(obj.name); // 'Zatin'
 
-// const getLargestThreeNumber = (arr) =>{
+// const getLargestThreeNumber = (arr) =>{------------------------------->
 //     let max1 =-Infinity;
 //     for(i=0;i<arr.length;i++){
 //         if(arr[i]>max1){
@@ -1046,6 +1127,9 @@
 // document.getElementById("child").addEventListener("click", () => {
 //   console.log("Child Div Clicked!!");
 // });
+// document.getElementById("list").addEventListener("click", () => {
+//   console.log("Child Div Clicked!!");
+// });
 
 ////Event capturing ------------------------------------------>
 // document.getElementById("parent").addEventListener(
@@ -1056,9 +1140,12 @@
 //   true
 // ); // true enables capturing phase
 
-// // Child button event listener
+// Child button and child list event listener
 // document.getElementById("child").addEventListener("click", function (event) {
 //   console.log("Button Clicked");
+// });
+// document.getElementById("list").addEventListener("click", function (event) {
+//   console.log("List Clicked");
 // });
 
 ////Event Deligation --------------------------------------->
@@ -1110,7 +1197,7 @@
 // });
 
 //// async await// Build on top of promies , make code look more synchronous and improves readability  ---------------------------->
-//// so async function always returns a function and we can use await for it get resolved
+//// so async function always returns a promise and we can use await for it get resolved
 //// use try catch here for error handling
 
 // const getData = async () => {
@@ -1142,7 +1229,8 @@
 // console.log(this); // In a browser, logs: Window
 
 // 2. Function Context------------------>
-// In a regular function (not an arrow function), this refers to the object that is calling the function. If no object is calling the function, this will refer to the global object (or undefined in strict mode).
+// In a regular function (not an arrow function), this refers to the object that is calling the function.
+// If no object is calling the function, this will refer to the global object (or undefined in strict mode).
 
 // function show() {
 //   console.log(this);
@@ -1163,7 +1251,8 @@
 // person.greet(); // Logs: Alice
 
 // 4. Arrow Functions------------------------------>
-// Arrow functions do not have their own this context. Instead, this is inherited from the surrounding lexical context.
+// Arrow functions do not have their own 'this' context.
+// Instead, this is inherited from the surrounding lexical context.
 
 // const person = {
 //   name: 'Bob',
@@ -1189,6 +1278,7 @@
 
 // 6. call and apply Methods------------------------->
 // You can explicitly set the value of this using call or apply methods.
+// So this in a function points to the object that is calling the function..
 
 // function greet() {
 //   console.log(this.name);
@@ -1219,8 +1309,19 @@
 // console.log(today); // gives current date and time
 // console.log(today.toLocaleString()); // gives date and time in human readable form
 
-// const randomDate = new Date("1997-11-04");
+// const randomDate = new Date("04-12-1997");
+// console.log(randomDate.getTime());
+
+// const randomDate = new Date("1997-12-04");
 // console.log(randomDate.toLocaleString());
+// console.log(randomDate.toDateString());
+// console.log(randomDate.toLocaleDateString());
+// console.log(randomDate.toLocaleTimeString());
+// console.log(randomDate.getDate());
+// console.log(randomDate.getDay());
+// console.log(randomDate.getFullYear());
+// console.log(randomDate.getHours());
+
 // console.log(!isNaN(randomDate.getTime()) ? "Valid Date" : "Invalid Date");
 
 // const date = new Date();
@@ -1254,11 +1355,13 @@
 
 ////HTML--------------------------------------------------------------->////
 
-// Attributes in HTML
-// Attributes provide additional information about HTML elements and modify their default behavior or appearance. Here are a few key points:
+// Attributes in HTML------------------------->
+// Attributes provide additional information about HTML elements and modify their default behavior or appearance.
+//Here are a few key points:
 
 // Name-Value Pair: An attribute is always written as a name-value pair, like href="https://www.example.com".
-// Optional: Some attributes are optional depending on the element, while others are required. For example, the href attribute is required for anchor (<a>) tags to function as hyperlinks.
+// Optional: Some attributes are optional depending on the element, while others are required.
+// For example, the href attribute is required for anchor (<a>) tags to function as hyperlinks.
 // Position: Attributes are placed within the opening tag of an HTML element.
 // Example Breakdown
 
@@ -1273,13 +1376,16 @@
 // alt: Provides alternative text for images if they cannot be displayed.
 // class: Assigns one or more class names to an element for styling with CSS.
 // id: Provides a unique identifier for an element that can be used for styling or scripting.
-// Attributes enhance the functionality and styling of HTML elements, making them crucial for creating interactive and well-structured web pages.
+// Attributes enhance the functionality and styling of HTML elements, making them crucial
+// for creating interactive and well-structured web pages.
 
 // What are void elements in HTML?---------------------------------->
-// HTML elements which do not have closing tags or do not need to be closed are Void elements. For Example <br />(break line), <img />, <hr />(horizontal line), etc.
+// HTML elements which do not have closing tags or do not need to be closed are Void elements.
+// For Example <br />(break line), <img />, <hr />(horizontal line), etc.
 // <input /> – Input field  <link /> – Links external resources (like CSS files)  <embed /> – Embeds external content
 
-// The <embed /> tag is used in HTML to embed external content, such as multimedia (like videos, audio, or documents), into a webpage. This tag is particularly useful when embedding plugins, flash objects, or other types of media.
+// The <embed /> tag is used in HTML to embed external content, such as multimedia (like videos, audio, or documents),
+// into a webpage. This tag is particularly useful when embedding plugins, flash objects, or other types of media.
 
 // Example of the <embed /> tag:
 
@@ -1290,17 +1396,24 @@
 // height: Defines the height of the embedded content.
 // type: Specifies the media type (like video/mp4, application/pdf).
 // autoplay: Automatically plays the embedded content (for media files).
-// The <embed /> tag is less commonly used nowadays since HTML5 introduced more specific tags like <video>, <audio>, and <iframe>, but it is still useful in certain cases.
+// The <embed /> tag is less commonly used nowadays since HTML5 introduced
+// more specific tags like <video>, <audio>, and <iframe>, but it is still useful in certain cases.
 
 // <p>This    is a    sentence   with    irregular    spacing.</p>
 //In the browser, this will render as:
 // This is a sentence with irregular spacing.
 //The advantage is that content remains clean and uniform, regardless of the number of spaces used in the code.
 
-// HTML entities are special characters or symbols in HTML that are represented by specific code sequences to ensure proper display in the browser. These are useful when the characters you want to display are reserved in HTML (like <, >, or &), or when you need to display symbols that aren't on your keyboard.
+// HTML entities are special characters or symbols in HTML that are represented by
+// specific code sequences to ensure proper display in the browser. These are useful when
+// the characters you want to display are reserved in HTML (like <, >, or &),
+// or when you need to display symbols that aren't on your keyboard.
 
 // Key Points About HTML Entities:
-// Purpose: HTML entities are used to display reserved characters (like &, <, >) or special symbols that may be interpreted differently by the browser.
+
+// Purpose: HTML entities are used to display reserved characters (like &, <, >) or special symbols
+// that may be interpreted differently by the browser.
+
 // Syntax: An HTML entity starts with an &, followed by a name or number, and ends with a semicolon ;.
 
 // Types:
@@ -1309,7 +1422,8 @@
 // Numeric Entities: Use numbers to represent the character.
 // Example: &#60; represents <, &#62; represents >, and &#38; represents &.
 
-// HTML provides different types of lists to organize and present information in a structured manner. There are three main types of lists in HTML:
+// HTML provides different types of lists to organize and present information in a structured manner.------>
+//There are three main types of lists in HTML:
 
 // 1. Ordered List (<ol>)
 // An ordered list presents items in a numbered sequence.
@@ -1350,7 +1464,8 @@
 
 // 3. Description List (<dl>)
 // A description list is used to list terms and their corresponding descriptions.
-// Terms are defined using the <dt> (description term) element, and descriptions are defined using the <dd> (description data) element.
+// Terms are defined using the <dt> (description term) element,
+// and descriptions are defined using the <dd> (description data) element.
 
 // <dl>
 //   <dt>HTML</dt>
@@ -1458,7 +1573,8 @@
 // </header>
 
 // 2. <footer>:
-// The <footer> represents the end section of a webpage or a specific section of a page. It typically contains information like copyrights, disclaimers, links to privacy policies, or contact details.
+// The <footer> represents the end section of a webpage or a specific section of a page.
+// It typically contains information like copyrights, disclaimers, links to privacy policies, or contact details.
 
 // Example:
 
@@ -1497,8 +1613,6 @@
 
 // Example:
 
-// html
-// Copy code
 // <section>
 //   <h2>Our Services</h2>
 //   <p>We provide a range of services including web development and design...</p>
@@ -1539,6 +1653,8 @@
 //   <meta charset="UTF-8">
 //   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 //   <title>Website Layout</title>
+// can have a style tag here to define styles on classes, ids and tags
+// also can have  a link tag to attach a external css file to this page
 // </head>
 // <body>
 
@@ -1594,7 +1710,7 @@
 // <mark> - highlights the text
 // <ins> - displays as added text
 
-//// HTML , CSS , JS MOCK QUESTIONS...
+//// HTML , CSS , JS MOCK QUESTIONS...----------------->
 
 ////Semantic Tags-------------------->
 
@@ -1841,7 +1957,8 @@ and table-layout. */
 //   top: 10px;
 //   left: 20px;
 // }
-// Here, the .relative-element will be offset by 10px from the top and 20px from the left of where it would normally be positioned.
+// Here, the .relative-element will be offset by 10px from the top and 20px from the left
+//of where it would normally be positioned.
 
 // 3. absolute
 // Behavior: The element is positioned relative to its nearest positioned ancestor
@@ -2201,12 +2318,12 @@ and table-layout. */
 
 ////GUESS OUTPUT::---------------->
 
-// var x = 20;//-------------->
+// var x = 20; //-------------->
 // function foo() {
 //   console.log(x);
 //   var x = 10;
 // }
-// foo();
+// foo(); //undefined------------->
 
 // console.log("Start");//----------------->
 // setTimeout(() => {
@@ -2419,9 +2536,12 @@ and table-layout. */
 // function Person(name) {
 //   this.name = name;
 // }
-// Person.prototype.sayHello = function() {
+// Person.prototype.sayHello = function () {
 //   return "Hello " + this.name;
 // };
+
+// const zatin = new Person("Zatin");
+// console.log(zatin.sayHello());
 
 // // ES6
 // class Person {
@@ -2554,3 +2674,439 @@ and table-layout. */
 // and transpile it to a version that is compatible with older browsers (usually ES5).
 // Babel doesn’t bundle files like Webpack
 // but instead focuses on transforming code so it can be run in any environment.
+
+////Implementing inc and decrement counters using constrcutor and closures--->
+
+// function counter() {
+//   var count = 0;
+//   this.incCounter = () => {
+//     count++;
+//     console.log(count);
+//   };
+//   this.decCounter = () => {
+//     count--;
+//     console.log(count);
+//   };
+// }
+
+// var counter1 = new counter();
+// counter1.incCounter();
+// counter1.incCounter();
+// counter1.decCounter();
+
+// const printJson = (jsonObj) => {
+//   const obj1 = typeof jsonObj === "string" ? JSON.parse(jsonObj) : jsonObj;
+//   for (let key in obj1) {
+//     if (typeof obj1[key] === "object" && obj1[key] !== null) {
+//       printJson(obj1[key]);
+//     } else {
+//       console.log(obj1[key]);
+//     }
+//   }
+// };
+
+// const jsonString =
+//   '{"name": "John", "age": 30, "address": {"city": "New York", "zip": "10001", "cars":["BMW","FORD"]}}';
+// printJson(jsonString);
+// console.log(JSON.parse(jsonString));
+
+//{
+//   name: 'John',
+//   age: 30,
+//   address: { city: 'New York', zip: '10001', cars: [ 'BMW', 'FORD' ] }
+// }
+
+//Deep copy vs Shallow Copy----------------->
+
+// Shallow Copy:--------------------------------------------->
+
+// In a shallow copy, only the top-level properties are copied, and if a property is an object
+// (or array), only the reference to that object is copied, not the object itself. This means the nested
+// objects or arrays in the copy and the original are shared by reference. If you modify a nested object or
+// array in the shallow copy, it will also affect the original object because both the copy and the
+// original point to the same memory reference for those nested structures.
+
+// let shallowObj = { ...obj }; // Shallow Copy, the ref to address is same in both objs and new copies for name and age
+// shallowObj.name = "Johnson";
+// shallowObj.address.city = "New Jersey";
+// console.log(obj);
+
+// Deep Copy:----------------------------------------->
+// In a deep copy, the copying process recursively creates new instances of all nested objects or
+// arrays. This means that the references to all objects (top-level and nested) in the copied object
+// are different from the original. Modifications made to any part of the deep copy do
+// not affect the original object.
+
+// let obj = {
+//   name: "John",
+//   age: 30,
+//   address: { city: "New York", zip: "10001", cars: ["BMW", "FORD"] },
+// };
+
+// const deepCopy = JSON.parse(JSON.stringify(obj)); // Deep Copy------->
+
+// deepCopy.name = "Johnson";
+// deepCopy.address.city = "New Jersey";
+// console.log(obj);
+
+//Questions------------------->
+
+// const fun1 = () => {--------------------------------->
+//   return 2;
+// };
+
+// const fun2 = () => {
+//   return 4;
+// };
+
+// const a = (fun1(), fun2());
+// console.log(a); //4
+
+// console.log(true == "");--------------->
+// console.log(1 == "1");
+
+// const a = 10;--------------------------->
+// const b = new Number(10);
+// console.log(a, b);
+// console.log(a === b);
+
+// const mergeTwoStrings = (str1, str2) => {
+//   let strLength;
+//   let remString;
+//   if (str1.length < str2.length) {
+//     strLength = str1.length;
+//     const diff = str2.length - str1.length;
+//     remString = str2.slice(diff);
+//     console.log(remString);
+//   } else {
+//     strLength = str2.length;
+//     const diff = str1.length - str2.length;
+//     remString = str1.slice(diff);
+//     console.log(remString);
+//   }
+
+//   let mergedString = "";
+//   for (let i = 0; i < strLength; i++) {
+//     mergedString += str1[i] + str2[i];
+//   }
+//   console.log(mergedString + remString);
+// };
+
+// mergeTwoStrings("1234", "56789101112");
+
+// const mergeTwoStrings = (str1, str2) => {
+//   let strLen1 = str1.length;
+//   let strLen2 = str2.length;
+//   let i = 0;
+//   let j = 0;
+//   let mergedString = "";
+//   while (i < strLen1 || j < strLen2) {
+//     if (strLen1 > i) {
+//       mergedString += str1[i];
+//       i++;
+//     }
+//     if (strLen2 > j) {
+//       mergedString += str2[j];
+//       j++;
+//     }
+//   }
+//   console.log(mergedString);
+// };
+
+// mergeTwoStrings("1234", "56789101112");
+
+// const sum = (a, b) => {
+//   // Check if the second argument is undefined (implies curried function call)
+//   if (b === undefined) {
+//     // Return a function that expects the second argument
+//     return (c) => a + c;
+//   }
+
+//   // If both arguments are provided, sum them directly
+//   return a + b;
+// };
+
+// // Usage examples:
+// console.log(sum(2, 4)); // Output: 6
+// console.log(sum(2)(4)); // Output: 6
+
+// const arr = [[1, 2], [3, 4], [5, 6], 7];
+
+// console.log(arr.flat());
+
+// const flattenArr = (arr) => {
+//   let flatArr = [];
+//   arr.map((arr1) => {
+//     if (Array.isArray(arr1)) {
+//       arr1.map((arr2) => flatArr.push(arr2));
+//     } else {
+//       flatArr.push(arr1);
+//     }
+//   });
+//   console.log(flatArr);
+// };
+// flattenArr(arr);
+
+/////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+//////
+///////
+
+// function (...promises){
+//   let count =0;
+//   let batch = promises.slice(0,3);
+
+//   promise1.then((data)=>console.log(data))
+//   .catch((err)=console.log(err))
+
+// }
+
+// let today = new Date();
+// today.setDate(today.getDate() + 7);
+// console.log(today.toLocaleDateString());
+
+// const isPalindrome = (str) => {
+//   const revString = str.split("").reverse().join("");
+//   if (str === revString) {
+//     return true;
+//   } else return false;
+// };
+
+// console.log(isPalindrome("aaba"));
+
+// How to Execute Promises in Batches:-------------->
+// Here’s an implementation that executes an array of promises in batches:
+
+// async function executeInBatches(promises, batchSize) {
+//   const results = [];
+
+//   //   // Break the array of promises into batches
+//   for (let i = 0; i < promises.length; i += batchSize) {
+//     try {
+//       // Wait for all promises in the batch to resolve
+//       const batchResults = await Promise.all(batch);
+//       console.log("Batch Resolved:", batchResults); // Log resolved values
+//       // Add results to the final results array
+//       results.push(...batchResults);
+//     } catch (err) {
+//       console.error("Batch Error:", err); // Handle any errors from the batch
+//     }
+//   }
+
+//   return results;
+// }
+
+// // Example usage:
+// const asyncTask = (n) => new Promise((resolve) => setTimeout(() => resolve(n), 1000));
+
+// const tasks = [
+//   asyncTask(1),
+//   asyncTask(2),
+//   asyncTask(3),
+//   asyncTask(4),
+//   asyncTask(5),
+//   asyncTask(6)
+// ];
+
+// // Run with a batch size of 2
+// executeInBatches(tasks, 2).then((results) => console.log(results));
+
+//Max numbers of consecutive 1's in a binary array with k 0 swaps----------->
+
+// const maxNumOnes = (arr, k) => {
+//   let max = 0;
+
+//   for (let i = 0; i < arr.length; i++) {
+//     let replacers = k;
+//     let count = 0;
+//     for (let j = i; j < arr.length; j++) {
+//       if (arr[j] === 1) {
+//         count++;
+//       } else if (arr[j] === 0 && replacers > 0) {
+//         count++;
+//         replacers--;
+//       } else {
+//         break;
+//       }
+//     }
+//     if (count > max) {
+//       max = count;
+//     }
+//   }
+//   return max;
+// };
+// console.log(maxNumOnes([1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1], 2));
+
+//Deboncing vs Throttling------>
+
+//Debouncing---> Making an api call only when the user stops typing for 200ms
+// const makeCall = async () => {
+//   const getData = await "API_CALL";
+// };
+// const [inputString, setInputString] = useState("");
+
+// useEffect(() => {
+//   let timeout = null;
+
+//   timeout = setTimeout(() => {
+//     makeCall();
+//   }, 200);
+
+//   return () => {
+//     clearTimeout(timeout);
+//   };
+// }, [inputString]);
+
+// <input value={inputString} onChange={(e) => setInputString(e.target.value)} />;
+
+//Throtolling-------------->
+
+// Comparing two objects---------------------->
+// const objA = { name: "John", details: { age: 25, city: "New York" } };
+// const objB = { name: "John", details: { age: 25, city: "New York" } };
+
+//Deep Comp--->
+
+//Using JSON.stringify will fail when the order of keys are diffrent
+// const obj1 = { a: 1, b: 2 };
+// const obj2 = { b: 2, a: 1 };
+
+// console.log(JSON.stringify(obj1) === JSON.stringify(obj2)); // false
+
+// const obj1 = { a: 1, b: undefined };
+// const obj2 = { a: 1 };
+
+// console.log(JSON.stringify(obj1) === JSON.stringify(obj2)); // true (because `undefined` is ignored)
+
+// const obj1 = {
+//   name: "Zatin",
+//   location: { address: "21,Baker's Street", city: "Delhi" },
+// };
+// const obj2 = {
+//   name: "Zatin",
+//   location: { address: "21,Baker's Street", city: "Delhi" },
+// };
+
+// const deepCheck = (obj1, obj2) => {----------------->
+//   if (obj1 === obj2) return true;
+//   if (
+//     typeof obj1 !== "object" ||
+//     typeof obj2 !== "object" ||
+//     obj1 === null ||
+//     obj2 === null
+//   ) {
+//     return false;
+//   }
+
+//   const objKeys1 = Object.keys(obj1);
+//   const objKeys2 = Object.keys(obj2);
+//   if (objKeys1.length !== objKeys2.length) {
+//     return false;
+//   }
+//   for (let key of objKeys1) {
+//     if (!deepCheck(obj1[key], obj2[key])) {
+//       return false;
+//     }
+//   }
+//   return true;
+// };
+
+// console.log(deepCheck(obj1, obj2));
+
+//Or use Library like Load Lash
+
+// Promises chaining example why better than callbacks-------------->
+
+// const firstTask = () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log("First task done");
+//       resolve(10);
+//     }, 1000);
+//   });
+// };
+
+// const secondTask = (resultFromFirst) => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log(`Second task done, got ${resultFromFirst}`);
+//       resolve(resultFromFirst * 2);
+//     }, 1000);
+//   });
+// };
+
+// const thirdTask = (resultFromSecond) => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log(`Third task done, got ${resultFromSecond}`);
+//       resolve(resultFromSecond + 5);
+//     }, 1000);
+//   });
+// };
+
+// // Start the promise chain
+// firstTask() //10
+//   .then((result) => secondTask(result)) //20
+//   .then((result) => thirdTask(result)) //25
+//   .then((finalResult) => console.log(`Final result: ${finalResult}`))
+//   .catch((error) => console.error(error)); // thrws error if any promise in chain resolve to solve
+
+// Why Promises Are Better----------------->
+
+// Readability: Promises provide cleaner, more readable code with proper chaining and linear flow.
+
+// Error Handling: Centralized error handling with .catch() instead of manual error propagation.
+
+// Control: Promises avoid "inversion of control," giving you control over how and when asynchronous operations resolve.
+//         The calling func dont know the callback will get exectued how many times or even once
+
+// Chaining: Built-in support for chaining and combining multiple promises using Promise.all,
+//         Promise.race, and others.
+
+// Modern Syntax: Compatible with modern async/await syntax for even better readability.

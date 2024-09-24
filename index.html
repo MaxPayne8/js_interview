@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
-    <!-- <div
+    <!-- Event Bubbling and Event Capturing/Trickling-------->
+    <div
       id="parent"
       style="background-color: blue; padding: 20px; font-size: 20px"
     >
@@ -17,14 +18,46 @@
       >
         Child
       </button>
-     
+      <!-- Event Delegation-------->
       <ul id="list" style="background-color: aqua; color: blueviolet">
         <li>Element-1</li>
         <li>Element-2</li>
         <li>Element-3</li>
       </ul>
-    </div> -->
+    </div>
 
     <script src="src/script.js"></script>
   </body>
 </html>
+
+<!-- These two <meta> tags are crucial for defining how a web page behaves and how content is interpreted by browsers.
+
+1. <meta charset="UTF-8" />
+Purpose: This tag specifies the character encoding used by the HTML document.
+
+Explanation:
+
+charset stands for character set, and UTF-8 is a popular encoding that can represent almost
+any character from most of the world’s writing systems.
+
+UTF-8 (Unicode Transformation Format - 8-bit) is the most widely used character encoding on 
+the web because it supports a wide range of characters, including special symbols and characters from 
+different languages (e.g., Chinese, Arabic, emoji, etc.).
+
+Why it’s important: Without this tag, the browser might not interpret characters correctly, 
+potentially leading to garbled or incorrect text display, especially for non-ASCII characters. -->
+
+<!-- 2. <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+Purpose: This tag is critical for responsive web design. It controls how a web page is displayed on different devices, 
+particularly on mobile devices.
+
+Explanation:
+
+name="viewport": Defines settings for the browser’s viewport (the visible area of a webpage).
+content="width=device-width": Tells the browser to set the page’s width equal to the device’s screen width 
+(i.e., responsive to the device’s size).
+initial-scale=1.0: Sets the initial zoom level when the page is first loaded. A value of 1.0 means no zoom; 
+the page is displayed at 100% scale.
+Why it’s important: Without this tag, mobile devices would typically display the desktop version of the website 
+and automatically scale it down, which can make the content difficult to read and interact with. This tag ensures 
+that the layout adapts properly to smaller screens, making it user-friendly on phones and tablets. -->
